@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 30px;
+            font-size: 2.5em;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        #click-btn {
+            background-color: #ff4b2b;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #click-btn:hover {
+            background-color: #ff3a1a;
+        }
+
+        #start-btn {
+            background-color: #4CAF50;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        #score {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚡ Click Challenge ⚡</h1>
+    <div class="container">
+        <p>Haz clic tantas veces como puedas en 10 segundos</p>
+        <button id="start-btn">Iniciar Juego</button>
+        <div id="timer">Tiempo: 10s</div>
+        <div id="score">Clics: 0</div>
+        <button id="click-btn" disabled>¡Haz Clic!</button>
+    </div>
+
+    <script>
+        let timeLeft = 10;
+        let score = 0;
+        let timerInterval;
+
+        const timerDisplay = document.getElementById("timer");
+        const scoreDisplay = document.getElementById("score");
+        const clickBtn = document.getElementById("click-btn");
+        const startBtn = document.getElementById("start-btn");
+
+        startBtn.addEventListener("click", () => {
+            score = 0;
+            timeLeft = 10;
+            scoreDisplay.textContent = "Clics: 0";
+            timerDisplay.textContent = "Tiempo: 10s";
+            clickBtn.disabled = false;
+            startBtn.disabled = true;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Tiempo: ${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    clickBtn.disabled = true;
+                    startBtn.disabled = false;
+                    alert(`¡Tiempo terminado! Hiciste ${score} clics`);
+                }
+            }, 1000);
+        });
+
+        clickBtn.addEventListener("click", () => {
+            score++;
+            scoreDisplay.textContent = `Clics: ${score}`;
+        });
+    </script>
+</body>
+</html>
